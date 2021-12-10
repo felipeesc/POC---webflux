@@ -18,7 +18,7 @@ public class PocService {
         return pocRepository.findAll().log();
     }
 
-    public Mono<Poc> findById(int id){
+    public Mono<Poc> findById(int id) {
         return pocRepository.findById(id)
                 .switchIfEmpty(monoResponseNotFoundException(id))
                 .log();
