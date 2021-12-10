@@ -3,3 +3,11 @@ spring:
     url: r2dbc:postgresql://localhost:5432/postgres?schema=poc
     username: root
     password: root
+logging:
+  level:
+    springframework:
+      data:
+        r2dbc: DEBUG
+server:
+  error:
+    include-stacktrace: on_param
