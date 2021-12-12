@@ -1,6 +1,6 @@
 package com.example.pocwebflux.controller;
 
-import com.example.pocwebflux.domain.Poc;
+import com.example.pocwebflux.domain.entity.Poc;
 import com.example.pocwebflux.service.PocService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

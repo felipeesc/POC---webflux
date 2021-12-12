@@ -1,6 +1,6 @@
 package com.example.pocwebflux.repository;
 
-import com.example.pocwebflux.domain.Poc;
+import com.example.pocwebflux.domain.entity.Poc;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 

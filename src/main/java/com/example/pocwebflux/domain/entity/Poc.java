@@ -1,4 +1,4 @@
-package com.example.pocwebflux.domain;
+package com.example.pocwebflux.domain.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

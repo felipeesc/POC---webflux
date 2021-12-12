@@ -1,6 +1,6 @@
 package com.example.pocwebflux.service;
 
-import com.example.pocwebflux.domain.Poc;
+import com.example.pocwebflux.domain.entity.Poc;
 import com.example.pocwebflux.repository.PocRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,11 @@ public class PocService {
     public Mono<Poc> findById(int id) {
         return pocRepository.findById(id)
                 .switchIfEmpty(monoResponseNotFoundException(id))
+                .log();
+    }
+
+    public Mono<Poc> save(Poc poc) {
+        return pocRepository.save(poc)
                 .log();
     }
 

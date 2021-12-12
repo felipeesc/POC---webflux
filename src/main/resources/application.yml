@@ -1,13 +1,36 @@
+spring.application.name: POC
+consumerGroup: ${spring.application.name}-Consumer-Group
+
 spring:
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/postgres?schema=poc
     username: root
     password: root
+  sleuth:
+    messaging.kafka.enabled: true
 logging:
   level:
     springframework:
       data:
         r2dbc: DEBUG
+  cloud:
+    stream:
+      brokers:
+        minPartitionCount: 2
+          replicationFactor: 1
+          consumer-properties:
+            auto.offset.reset: latest
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: localhost
+      default:
+        group: ${consumerGroup}
+        pool: 100
+      topic-poc:
+        destination: POC-Individual
+        contentType: application/json
+          consumer:
+            concurrency: 2
 server:
   error:
     include-stacktrace: on_param
