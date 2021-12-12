@@ -1,8 +1,15 @@
 package com.example.pocwebflux.util;
 
+import com.example.pocwebflux.domain.PocDTO;
 import com.example.pocwebflux.domain.entity.Poc;
 
 public class PocCreator {
+
+    public static PocDTO createPocDTOToBeSaved(){
+        return PocDTO.builder()
+                .name("data")
+                .build();
+    }
 
     public static Poc createPocToBeSaved(){
         return Poc.builder()
