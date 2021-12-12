@@ -1,6 +1,5 @@
 package com.example.pocwebflux.service;
 
-import com.example.pocwebflux.domain.PocDTO;
 import com.example.pocwebflux.domain.entity.Poc;
 import com.example.pocwebflux.repository.PocRepository;
 import com.example.pocwebflux.util.PocCreator;
@@ -48,6 +47,13 @@ class PocServiceTest {
 
         BDDMockito.when(pocRepository.save(PocCreator.createPocToBeSaved()))
                 .thenReturn(Mono.just(poc));
+
+
+        BDDMockito.when(pocRepository.delete(ArgumentMatchers.any(Poc.class)))
+                .thenReturn(Mono.empty());
+
+        BDDMockito.when(pocRepository.save(PocCreator.createValidPoc()))
+                .thenReturn(Mono.empty());
     }
 
     @Test
@@ -99,10 +105,48 @@ class PocServiceTest {
     @Test
     @DisplayName("save create an poc when successful")
     void save_createPoc_whenSuccessful() {
-        PocDTO pocToBeSaved = PocCreator.createPocDTOToBeSaved();
-        StepVerifier.create(pocService.save(pocToBeSaved))
+        StepVerifier.create(pocService.save(PocCreator.createPocDTOToBeSaved()))
                 .expectSubscription()
                 .expectNext(poc)
                 .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("delete removes the poc when successful")
+    void delete_Poc_whenSuccessful() {
+        StepVerifier.create(pocService.delete(1))
+                .expectSubscription()
+                .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("delete removes Mono error when poc does not exist")
+    void delete_ReturnMonoErro_whenEmptyMonoIsReturned() {
+        BDDMockito.when(pocRepository.findById(ArgumentMatchers.anyInt()))
+                .thenReturn(Mono.empty());
+
+        StepVerifier.create(pocService.delete(1))
+                .expectSubscription()
+                .expectError(ResponseStatusException.class)
+                .verify();
+    }
+
+    @Test
+    @DisplayName("update save update poc and returns empty mono when successful")
+    void update_SaveUpdatePoc_whenSuccessful() {
+        StepVerifier.create(pocService.update(PocCreator.createValidPocDTO()))
+                .expectSubscription()
+                .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("update return Mono error when anime does exist")
+    void update_ReturnMonoErro_whenEmptyMonoIsReturned() {
+        BDDMockito.when(pocRepository.findById(ArgumentMatchers.anyInt()))
+                .thenReturn(Mono.empty());
+
+        StepVerifier.create(pocService.update(PocCreator.createValidPocDTO()))
+                .expectError(ResponseStatusException.class)
+                .verify();
     }
 }

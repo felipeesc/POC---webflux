@@ -24,6 +24,13 @@ public class PocCreator {
                 .build();
     }
 
+    public static PocDTO createValidPocDTO(){
+        return PocDTO.builder()
+                .id(1)
+                .name("data")
+                .build();
+    }
+
     public static Poc createvalidUpdatePoc(){
         return Poc.builder()
                 .id(1)
