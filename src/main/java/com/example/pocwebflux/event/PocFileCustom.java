@@ -1,6 +1,5 @@
 package com.example.pocwebflux.event;
 
-import com.example.pocwebflux.config.KafkaConsumerConfig;
 import com.example.pocwebflux.domain.PocDTO;
 import com.example.pocwebflux.domain.entity.Poc;
 import com.example.pocwebflux.service.PocService;
