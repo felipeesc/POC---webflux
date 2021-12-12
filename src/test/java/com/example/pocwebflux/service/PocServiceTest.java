@@ -39,7 +39,7 @@ class PocServiceTest {
     }
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         BDDMockito.when(pocRepository.findAll())
                 .thenReturn(Flux.just(poc));
 
@@ -49,8 +49,9 @@ class PocServiceTest {
         BDDMockito.when(pocRepository.save(PocCreator.createPocToBeSaved()))
                 .thenReturn(Mono.just(poc));
     }
+
     @Test
-    public void blockHoundWorks() {
+    void blockHoundWorks() {
         try {
             FutureTask<?> task = new FutureTask<>(() -> {
                 Thread.sleep(0);
@@ -67,7 +68,7 @@ class PocServiceTest {
 
     @Test
     @DisplayName("findAll returns a flux of poc")
-    public void findAll_returnFluxOfPoc_whenSuccessful(){
+    void findAll_returnFluxOfPoc_whenSuccessful() {
         StepVerifier.create(pocService.listAll())
                 .expectSubscription()
                 .expectNext(poc)
@@ -76,7 +77,7 @@ class PocServiceTest {
 
     @Test
     @DisplayName("findById return Mono with poc whe it exists")
-    public void findById_returnMonoPoc_whenSuccessful(){
+    void findById_returnMonoPoc_whenSuccessful() {
         StepVerifier.create(pocService.findById(1))
                 .expectSubscription()
                 .expectNext(poc)
@@ -85,7 +86,7 @@ class PocServiceTest {
 
     @Test
     @DisplayName("findById return Mono error when poc does not exist")
-    public void findById_returnMonoPoc_whenEmptyMonoIsReturn(){
+    void findById_returnMonoPoc_whenEmptyMonoIsReturn() {
         BDDMockito.when(pocRepository.findById(ArgumentMatchers.anyInt()))
                 .thenReturn(Mono.empty());
 
@@ -97,7 +98,7 @@ class PocServiceTest {
 
     @Test
     @DisplayName("save create an poc when successful")
-    public void save_createPoc_whenSuccessful(){
+    void save_createPoc_whenSuccessful() {
         PocDTO pocToBeSaved = PocCreator.createPocDTOToBeSaved();
         StepVerifier.create(pocService.save(pocToBeSaved))
                 .expectSubscription()
