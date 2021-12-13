@@ -84,9 +84,13 @@ public class PocControllerIT {
                 .uri("/v1")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.[0].id").isEqualTo(poc.getId())
-                .jsonPath("$.[0].name").isEqualTo(poc.getName());
+                .expectBodyList(Poc.class)
+                .hasSize(1)
+                .contains(poc);
+//                .expectStatus().isOk()
+//                .expectBody()
+//                .jsonPath("$.[0].id").isEqualTo(poc.getId())
+//                .jsonPath("$.[0].name").isEqualTo(poc.getName());
     }
 
 }
